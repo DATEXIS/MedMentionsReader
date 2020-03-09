@@ -1,4 +1,4 @@
-"""Setup for the datexis-medmentionsreader package."""
+"""Setup for the medmentionsreader package."""
 
 import setuptools
 
@@ -9,7 +9,7 @@ with open('README.md') as f:
 setuptools.setup(
     author="Tom Oberhauser",
     author_email="tom.oberhauser@beuth-hochschule.de",
-    name='datexis-medmentionsreader',
+    name='medmentionsreader',
     license='',
     description='MedMentionsReader is a module for reading the MedMentions dataset',
     version='v0.0.1',
