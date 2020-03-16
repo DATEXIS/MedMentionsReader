@@ -2,11 +2,12 @@ import os
 import re
 import logging
 from enum import Enum
+from typing import List
 
 from tqdm import tqdm
 
 logger = logging.getLogger(__name__)
-logging.basicConfig(level='INFO')
+logging.basicConfig(level='INFO')  # TODO remove me
 
 
 class Annotation:
@@ -33,6 +34,16 @@ class Document:
 
     def add_annotation(self, annotation: Annotation):
         self.annotations.append(annotation)
+
+    def get_annotations(self) -> List[Annotation]:
+        return self.annotations
+
+    def get_text(self) -> str:
+        """
+        Get a concatenation of MedMentions title and abstract that is compatible with all of the annotation offsets.
+        :return: Fulltext of the MedMentions document.
+        """
+        return self.title + self.abstract
 
     def __eq__(self, other):
         return self.id == other.id

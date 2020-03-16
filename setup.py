@@ -12,7 +12,7 @@ setuptools.setup(
     name='medmentionsreader',
     license='',
     description='MedMentionsReader is a module for reading the MedMentions dataset',
-    version='v0.0.1',
+    version='v0.0.2',
     long_description=README,
     url='https://github.com/DATEXIS/MedMentionsReader',
     packages=setuptools.find_packages(),
