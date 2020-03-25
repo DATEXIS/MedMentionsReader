@@ -67,7 +67,7 @@ class MedMentionsReader:
 
     def __parse_dataset__(self):
         logger.info('Parsing corpus_pubtator...')
-        with open(self.path + os.sep + 'corpus_pubtator.txt', 'r') as f:
+        with open(os.path.join(self.path, 'corpus_pubtator.txt'), 'r') as f:
             for line in tqdm(f, desc="Parsing corpus_pubtator.txt"):
                 line_type = get_line_type(line)
                 if line_type == LineType.DOCSEP:
@@ -92,15 +92,15 @@ class MedMentionsReader:
         def lines2list_of_ids(f):
             return [id.strip() for id in f.readlines() if len(id.strip()) > 0]
 
-        with open(self.path + os.sep + 'corpus_pubtator_pmids_trng.txt') as f_train:
+        with open(os.path.join(self.path, 'corpus_pubtator_pmids_trng.txt'), 'r') as f_train:
             for pmid in lines2list_of_ids(f_train):
                 self.documents_train[pmid] = self.documents_all.get(pmid)
             logger.info("Found {} ids for train set.".format(len(self.documents_train.keys())))
-        with open(self.path + os.sep + 'corpus_pubtator_pmids_test.txt') as f_test:
+        with open(os.path.join(self.path, 'corpus_pubtator_pmids_test.txt'), 'r') as f_test:
             for pmid in lines2list_of_ids(f_test):
                 self.documents_test[pmid] = self.documents_all.get(pmid)
             logger.info("Found {} ids for test set.".format(len(self.documents_test.keys())))
-        with open(self.path + os.sep + 'corpus_pubtator_pmids_dev.txt') as f_dev:
+        with open(os.path.join(self.path, 'corpus_pubtator_pmids_dev.txt'), 'r') as f_dev:
             for pmid in lines2list_of_ids(f_dev):
                 self.documents_dev[pmid] = self.documents_all.get(pmid)
             logger.info("Found {} ids for dev set.".format(len(self.documents_dev.keys())))
