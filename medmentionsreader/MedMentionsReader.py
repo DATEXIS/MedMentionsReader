@@ -18,6 +18,14 @@ class Annotation:
         self.semantic_type = tokens[4]
         self.umls_id = tokens[5]
 
+    def get_text(self):
+        return self.text
+
+    def get_semantic_type(self):
+        return self.semantic_type
+
+    def get_umls_id(self):
+        return self.umls_id
 
 class Document:
     def __init__(self, id):
