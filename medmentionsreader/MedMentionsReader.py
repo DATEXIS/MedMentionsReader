@@ -2,7 +2,7 @@ import os
 import re
 import logging
 from enum import Enum
-from typing import List
+from typing import List, Dict
 
 from tqdm import tqdm
 
@@ -16,21 +16,27 @@ class Annotation:
         self.end = int(tokens[2])
         self.text = tokens[3]
         self.semantic_type = tokens[4]
-        self.umls_id = tokens[5]
+        if tokens[5][:1] != 'C':
+            if tokens[5].split(':')[1][:1] == 'C':  # handle st21pv format 'UMLS:C000000' instead of 'C0000000'
+                self.umls_id = tokens[5].split(':')[1]
+            else:
+                raise Exception('Unexpected CUI format: {}'.format(tokens[5]))
+        else:
+            self.umls_id = tokens[5]
 
-    def get_begin(self):
+    def get_begin(self) -> int:
         return self.begin
 
-    def get_end(self):
+    def get_end(self) -> int:
         return self.end
 
-    def get_text(self):
+    def get_text(self) -> str:
         return self.text
 
-    def get_semantic_type(self):
+    def get_semantic_type(self) -> str:
         return self.semantic_type
 
-    def get_umls_id(self):
+    def get_umls_id(self) -> str:
         return self.umls_id
 
 
@@ -120,16 +126,16 @@ class MedMentionsReader:
                 self.documents_dev[pmid] = self.documents_all.get(pmid)
             logger.info("Found {} ids for dev set.".format(len(self.documents_dev.keys())))
 
-    def get_all(self) -> dict:
+    def get_all(self) -> Dict[str, Document]:
         return self.documents_all
 
-    def get_train(self) -> dict:
+    def get_train(self) -> Dict[str, Document]:
         return self.documents_train
 
-    def get_test(self) -> dict:
+    def get_test(self) -> Dict[str, Document]:
         return self.documents_test
 
-    def get_dev(self) -> dict:
+    def get_dev(self) -> Dict[str, Document]:
         return self.documents_dev
 
     def get_document_by_id(self, pmid) -> Document:
